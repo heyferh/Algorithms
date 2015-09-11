@@ -7,20 +7,30 @@ import java.util.Arrays;
  */
 public class MergeSort {
   public static void main(String[] args) {
-    int[] input = {11, 22, 33, 44, 1, 12, 13};
-    System.out.println(Arrays.toString(merge(input, 0, 3, 6)));
+    int[] input = {11, 12, 1, -5, 20, -5, 11};
+    System.out.println(Arrays.toString(mergeSort(input, 0, input.length - 1)));
   }
 
-  static int[] merge(int[] A, int p, int q, int r) {
+  static int[] mergeSort(int[] A, int p, int r) {
+    if (p < r) {
+      int q = (p + r) / 2;
+      mergeSort(A, p, q);
+      mergeSort(A, q + 1, r);
+      merge(A, p, q, r);
+    }
+    return A;
+  }
+
+  static void merge(int[] A, int p, int q, int r) {
     int leftLength = q - p + 1;
     int rightLength = r - q;
     int[] leftArray = new int[leftLength];
     int[] rightArray = new int[rightLength];
     for (int i = 0; i < leftLength; i++) {
-      System.arraycopy(A, 0, leftArray, 0, leftLength);
+      System.arraycopy(A, p, leftArray, 0, leftLength);
     }
     for (int i = 0; i < rightLength; i++) {
-      System.arraycopy(A, leftLength, rightArray, 0, rightLength);
+      System.arraycopy(A, p + leftLength, rightArray, 0, rightLength);
     }
     int leftCursor = 0;
     int rightCursor = 0;
@@ -40,7 +50,6 @@ public class MergeSort {
         }
       }
     }
-    return A;
   }
 }
 
