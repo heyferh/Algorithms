@@ -11,22 +11,22 @@ public class SelectionSort {
     System.out.println(Arrays.toString(sort(input)));
   }
 
-  static int[] sort(int[] A) {
+  public static int[] sort(int[] array) {
     int START_BARRIER = 0;
     int MIN_POSITION = 0;
-    while (START_BARRIER < A.length - 1) {
-      int MIN = A[START_BARRIER];
-      for (int i = START_BARRIER; i < A.length; i++) {
-        if (A[i] < MIN) {
-          MIN = A[i];
+    while (START_BARRIER < array.length - 1) {
+      int MIN = array[START_BARRIER];
+      for (int i = START_BARRIER; i < array.length; i++) {
+        if (array[i] < MIN) {
+          MIN = array[i];
           MIN_POSITION = i;
         }
       }
-      int tmp = A[START_BARRIER];
-      A[START_BARRIER] = MIN;
-      A[MIN_POSITION] = tmp;
+      int tmp = array[START_BARRIER];
+      array[START_BARRIER] = MIN;
+      array[MIN_POSITION] = tmp;
       START_BARRIER++;
     }
-    return A;
+    return array;
   }
 }

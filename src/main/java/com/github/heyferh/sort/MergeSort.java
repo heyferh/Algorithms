@@ -11,41 +11,41 @@ public class MergeSort {
     System.out.println(Arrays.toString(mergeSort(input, 0, input.length - 1)));
   }
 
-  static int[] mergeSort(int[] A, int p, int r) {
+  public static int[] mergeSort(int[] array, int p, int r) {
     if (p < r) {
       int q = (p + r) / 2;
-      mergeSort(A, p, q);
-      mergeSort(A, q + 1, r);
-      merge(A, p, q, r);
+      mergeSort(array, p, q);
+      mergeSort(array, q + 1, r);
+      merge(array, p, q, r);
     }
-    return A;
+    return array;
   }
 
-  static void merge(int[] A, int p, int q, int r) {
+  static void merge(int[] array, int p, int q, int r) {
     int leftLength = q - p + 1;
     int rightLength = r - q;
     int[] leftArray = new int[leftLength];
     int[] rightArray = new int[rightLength];
     for (int i = 0; i < leftLength; i++) {
-      System.arraycopy(A, p, leftArray, 0, leftLength);
+      System.arraycopy(array, p, leftArray, 0, leftLength);
     }
     for (int i = 0; i < rightLength; i++) {
-      System.arraycopy(A, p + leftLength, rightArray, 0, rightLength);
+      System.arraycopy(array, p + leftLength, rightArray, 0, rightLength);
     }
     int leftCursor = 0;
     int rightCursor = 0;
     for (int k = p; k < r; k++) {
       if (leftArray[leftCursor] <= rightArray[rightCursor]) {
-        A[k] = leftArray[leftCursor];
+        array[k] = leftArray[leftCursor];
         if (++leftCursor == leftLength) {
-          System.arraycopy(rightArray, rightCursor, A, k + 1, rightLength - rightCursor);
+          System.arraycopy(rightArray, rightCursor, array, k + 1, rightLength - rightCursor);
           break;
         }
 
       } else {
-        A[k] = rightArray[rightCursor];
+        array[k] = rightArray[rightCursor];
         if (++rightCursor == rightLength) {
-          System.arraycopy(leftArray, leftCursor, A, k + 1, leftLength - leftCursor);
+          System.arraycopy(leftArray, leftCursor, array, k + 1, leftLength - leftCursor);
           break;
         }
       }
