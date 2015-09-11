@@ -7,8 +7,8 @@ import java.util.Arrays;
  */
 public class InsertionSort {
   public static void main(String[] args) {
-    int[] input = {31, 41, 59, 26, 41, 58};
-    System.out.println(Arrays.toString(sort(input)));
+    int[] input = {2, 1};
+    System.out.println(Arrays.toString(recursiveSort(input, input.length)));
   }
 
   static int[] sort(int[] A) {
@@ -22,6 +22,24 @@ public class InsertionSort {
       }
       A[i + 1] = key;
     }
+    return A;
+  }
+
+  static int[] recursiveSort(int[] A, int n) {
+    if (n == 1) {
+      return A;
+    }
+    recursiveSort(A, n - 1);
+    int key = A[n - 1];
+    int i;
+    for (i = n - 2; i >= 0; i--) {
+      if (A[i] > key) {
+        A[i + 1] = A[i];
+      } else {
+        break;
+      }
+    }
+    A[i + 1] = key;
     return A;
   }
 }
