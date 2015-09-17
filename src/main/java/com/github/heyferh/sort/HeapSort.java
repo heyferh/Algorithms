@@ -1,7 +1,5 @@
 package com.github.heyferh.sort;
 
-import java.util.Arrays;
-
 /**
  * Created by feku on 9/16/2015.
  */
@@ -10,8 +8,10 @@ public class HeapSort {
   private static int[] array;
 
   public static void main(String[] args) {
-    sort(new int[]{3, 2, 4, 0, -4, -5});
-    System.out.println(Arrays.toString(array));
+    array = new int[]{3, 2, 4, 0, -4, 5};
+    buildMaxHeap();
+    heapInsert(3);
+    System.out.println(extractMax());
   }
 
   public static void sort(int[] input) {
@@ -49,6 +49,10 @@ public class HeapSort {
     }
   }
 
+  private static int getParent(int i) {
+    return (i - 1) / 2;
+  }
+
   private static int getLeft(int i) {
     return 2 * i + 1;
   }
@@ -61,5 +65,39 @@ public class HeapSort {
     int temp = array[a];
     array[a] = array[b];
     array[b] = temp;
+  }
+
+  private static int getMax() {
+    return array[0];
+  }
+
+  private static int extractMax() {
+    if (HEAP_SIZE < 1) {
+      throw new IllegalStateException("Empty heap");
+    }
+    int max = array[0];
+    array[0] = array[HEAP_SIZE - 1] - 2;
+    maxHeapify(0);
+    return max;
+  }
+
+  private static void increaseKey(int i, int key) {
+    if (key < array[i]) {
+      throw new IllegalArgumentException("New key mustn't be less than the previous one");
+    }
+    array[i] = key;
+    while (i > 0 && array[getParent(i)] < array[i]) {
+      swap(i, getParent(i));
+      i = getParent(i);
+    }
+  }
+
+  private static void heapInsert(int key) {
+    int[] newArray = new int[array.length + 1];
+    System.arraycopy(array, 0, newArray, 0, array.length);
+    array = newArray;
+    HEAP_SIZE++;
+    array[HEAP_SIZE - 1] = Integer.MIN_VALUE;
+    increaseKey(HEAP_SIZE - 1, key);
   }
 }
